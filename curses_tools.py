@@ -1,3 +1,8 @@
+"""
+Код заимствован у разработчиков из Devman.
+Взят отсюда: https://gist.github.com/dvmn-tasks/24c0262639dfbf10844c49af79d722fc#file-curses_tools-py
+"""
+
 SPACE_KEY_CODE = 32
 LEFT_KEY_CODE = 260
 RIGHT_KEY_CODE = 261
