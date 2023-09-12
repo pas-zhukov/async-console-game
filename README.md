@@ -23,6 +23,8 @@ git clone https://github.com/pas-zhukov/async-console-game.git
 python main.py
 ```
 
+Для выхода используйте сочетание клавиш Ctrl+C.
+
 ## Цель проекта:
 
-Проект написан в учебных целях.
+Код написан в учебных целях.
