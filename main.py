@@ -16,6 +16,14 @@ TIC_TIMEOUT = 0.1
 
 
 def load_spaceship_frames(folder='animations'):
+    """Get list of spaceship animation frames.
+
+    Args:
+        folder(str):  folder name where the spaceship frame files are located.
+
+    Return:
+        list[str]: A list containing the content of each spaceship frame file.
+    """
     spaceship_frames = []
     for frame_filename in Path(folder).glob('rocket_frame_*.txt'):
         with open(frame_filename, 'r') as frame_file:
