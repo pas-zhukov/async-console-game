@@ -62,6 +62,7 @@ async def fire(canvas, start_row, start_column, rows_speed=-0.3, columns_speed=0
 
 
 async def blink(canvas, row, column, symbol='*'):
+    """Animate a blinking symbol on the canvas."""
     while True:
         offset_ticks = random.randint(0, 20)
         for _ in range(0, offset_ticks):
