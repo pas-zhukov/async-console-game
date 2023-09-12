@@ -1,10 +1,9 @@
+from pathlib import Path
 import asyncio
 import time
 import curses
 import random
 from itertools import cycle
-import glob
-import os
 import logging
 
 from curses_tools import get_frame_size, draw_frame, read_controls
@@ -18,11 +17,9 @@ TIC_TIMEOUT = 0.1
 
 def load_spaceship_frames(folder='animations'):
     spaceship_frames = []
-
-    for frame_filename in glob.glob(os.path.join(folder, 'rocket_frame_*.txt')):
+    for frame_filename in Path(folder).glob('rocket_frame_*.txt'):
         with open(frame_filename, 'r') as frame_file:
             spaceship_frames.append(frame_file.read())
-
     return spaceship_frames
 
 
@@ -110,7 +107,6 @@ async def animate_spaceship(canvas, row, column, spaceship_frames):
 def draw(canvas):
     spaceship_frames = load_spaceship_frames()
 
-    row, column = (int(curses.LINES/2), int(curses.COLS/2))
     canvas.border()
     canvas.nodelay(True)
     curses.curs_set(False)
