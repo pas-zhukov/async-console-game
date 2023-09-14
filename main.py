@@ -92,22 +92,23 @@ async def animate_spaceship(canvas, row, column, spaceship_frames):
     width -= frame_columns
 
     for frame in cycle(spaceship_frames):
-        draw_frame(canvas, row, column, frame)
-        await asyncio.sleep(0)
+        for _ in range(2):
+            draw_frame(canvas, row, column, frame)
+            await asyncio.sleep(0)
 
-        draw_frame(canvas, row, column, frame, negative=True)
+            draw_frame(canvas, row, column, frame, negative=True)
 
-        rows_direction, columns_direction, _ = read_controls(canvas)
+            rows_direction, columns_direction, _ = read_controls(canvas)
 
-        if rows_direction or columns_direction:
-            row += rows_direction
-            column += columns_direction
+            if rows_direction or columns_direction:
+                row += rows_direction
+                column += columns_direction
 
-            row = max(1, row)
-            column = max(1, column)
+                row = max(1, row)
+                column = max(1, column)
 
-            row = min(row, height)
-            column = min(column, width)
+                row = min(row, height)
+                column = min(column, width)
 
 
 def draw(canvas):
