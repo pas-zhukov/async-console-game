@@ -8,9 +8,7 @@ import logging
 
 from curses_tools import get_frame_size, draw_frame, read_controls
 
-
 logger = logging.getLogger(__name__)
-
 
 TIC_TIMEOUT = 0.1
 
@@ -61,10 +59,9 @@ async def fire(canvas, start_row, start_column, rows_speed=-0.3, columns_speed=0
         column += columns_speed
 
 
-async def blink(canvas, row, column, symbol='*'):
+async def blink(canvas, row, column, symbol='*', offset_ticks: int = 0):
     """Animate a blinking symbol on the canvas."""
     while True:
-        offset_ticks = random.randint(0, 20)
         for _ in range(0, offset_ticks):
             await asyncio.sleep(0)
 
@@ -119,13 +116,23 @@ def draw(canvas):
     canvas.border()
     canvas.nodelay(True)
     curses.curs_set(False)
-    coroutines = [blink(canvas, 1, i, '*') for i in range(1, 6)]
-    coroutines = [
-        blink(canvas, random.randint(1, int(curses.LINES-1)), random.randint(1, int(curses.COLS-1)), random.choice('+*.:'))
-        for i in range(1, 100)]
-    coroutines += [fire(canvas, int(curses.LINES/2), int(curses.COLS/2), rows_speed=-0.85)]
-    coroutines.append(animate_spaceship(canvas, int(curses.LINES/2), int(curses.COLS/2), spaceship_frames))
 
+    coroutines = [
+        blink(canvas,
+              random.randint(1, int(curses.LINES - 1)),
+              random.randint(1, int(curses.COLS - 1)),
+              random.choice('+*.:'),
+              random.randint(1, 20))
+        for i in range(1, 100)
+    ]
+    coroutines += [fire(canvas,
+                        int(curses.LINES / 2),
+                        int(curses.COLS / 2),
+                        rows_speed=-0.85)]
+    coroutines += [animate_spaceship(canvas,
+                                     int(curses.LINES / 2),
+                                     int(curses.COLS / 2),
+                                     spaceship_frames)]
     while True:
         for coroutine in coroutines.copy():
             try:
